@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+/* --- RESET & BASICS --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', 'Noto Sans Arabic', sans-serif;
+  color: white;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* RTL Typography */
+[dir="rtl"] body {
+  font-family: 'Noto Sans Arabic', 'Poppins', sans-serif;
+}
+
+[dir="rtl"] * {
+  letter-spacing: 0 !important;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff6b6b, #ff9f43);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff9f43, #ff6b6b);
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 159, 67, 0.3);
+  color: white;
+}
+
+/* RTL Transitions */
+.app {
+  transition: direction 0s;
+}
+
+.app.rtl {
+  direction: rtl;
+}
+
+.app.ltr {
+  direction: ltr;
+}

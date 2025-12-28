@@ -1,0 +1,615 @@
+/* ==================== */
+/* HERO CAROUSEL SECTION */
+/* ==================== */
+
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* ==================== */
+/* SLIDES CONTAINER */
+/* ==================== */
+
+.slides-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: 1;
+    direction: ltr;
+    /* Force LTR for slides positioning */
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg,
+            rgba(14, 11, 29, 0.65) 0%,
+            rgba(46, 21, 70, 0.45) 50%,
+            rgba(14, 11, 29, 0.55) 100%);
+}
+
+/* ==================== */
+/* GLOW CIRCLE EFFECT */
+/* ==================== */
+
+.glow-circle {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle,
+            rgba(46, 21, 70, 0.85) 0%,
+            rgba(200, 80, 0, 0.15) 50%,
+            transparent 70%);
+    border-radius: 50%;
+    z-index: 2;
+    filter: blur(30px);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.3);
+    animation: pulse 6s infinite alternate ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}
+
+/* ==================== */
+/* CONTENT AREA */
+/* ==================== */
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 850px;
+    padding: 0 20px;
+}
+
+/* Tagline */
+.tagline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+    font-weight: 600;
+    color: #ffd700;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.6s ease-out;
+}
+
+.tagline.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.star-icon {
+    font-style: normal;
+    animation: twinkle 2s infinite;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* ==================== */
+/* TYPEWRITER HEADING */
+/* ==================== */
+
+.typewriter-heading {
+    font-size: 4rem;
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 30px;
+    min-height: 1.2em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    color: white;
+}
+
+.cursor {
+    display: inline-block;
+    color: #ff9f43;
+    font-weight: 300;
+    animation: blink 0.8s infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* ==================== */
+/* SUBTITLE */
+/* ==================== */
+
+.subtitle {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin-bottom: 45px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.95);
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out 0.1s;
+}
+
+.subtitle.visible {
+    opacity: 0.95;
+    transform: translateY(0);
+}
+
+/* ==================== */
+/* CTA BUTTON */
+/* ==================== */
+
+.btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 45px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff9f43 100%);
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: white;
+    text-decoration: none;
+    box-shadow:
+        0 10px 30px rgba(255, 107, 107, 0.4),
+        0 0 0 0 rgba(255, 159, 67, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.btn-cta.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s,
+        box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        background 0.3s ease;
+}
+
+.btn-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-cta:hover::before {
+    left: 100%;
+}
+
+.btn-cta:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+        0 20px 40px rgba(255, 107, 107, 0.5),
+        0 0 0 4px rgba(255, 159, 67, 0.2);
+}
+
+.btn-arrow {
+    background: white;
+    color: #ff6b6b;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.btn-cta:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+/* ==================== */
+/* FLOATING BADGE */
+/* ==================== */
+
+.floating-badge {
+    position: absolute;
+    top: 22%;
+    right: 12%;
+    background: linear-gradient(135deg, #4a148c 0%, #7b1fa2 100%);
+    color: white;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 10;
+    box-shadow:
+        0 15px 35px rgba(74, 20, 140, 0.5),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+    animation: float 4s ease-in-out infinite;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.badge-number {
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: block;
+}
+
+.badge-text {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.badge-year {
+    font-size: 0.65rem;
+    opacity: 0.8;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-18px) rotate(3deg);
+    }
+}
+
+/* ==================== */
+/* NAVIGATION ARROWS */
+/* ==================== */
+
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    font-size: 1.8rem;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.nav-arrow:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.nav-arrow:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.nav-arrow-left {
+    left: 30px;
+}
+
+.nav-arrow-right {
+    right: 30px;
+}
+
+/* ==================== */
+/* DOTS NAVIGATION */
+/* ==================== */
+
+.dots-container {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    gap: 12px;
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.dot {
+    width: 35px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.dot::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b6b, #ff9f43);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+}
+
+.dot:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.dot.active {
+    background: transparent;
+}
+
+.dot.active::after {
+    width: 100%;
+    animation: progress 7s linear forwards;
+}
+
+@keyframes progress {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.dot:disabled {
+    cursor: not-allowed;
+}
+
+/* ==================== */
+/* RESPONSIVE DESIGN */
+/* ==================== */
+
+@media (max-width: 1024px) {
+    .typewriter-heading {
+        font-size: 3rem;
+    }
+
+    .floating-badge {
+        right: 8%;
+        width: 95px;
+        height: 95px;
+    }
+
+    .nav-arrow {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .typewriter-heading {
+        font-size: 2.2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    .glow-circle {
+        width: 90%;
+        height: 50vh;
+    }
+
+    .floating-badge {
+        display: none;
+    }
+
+    .tagline {
+        font-size: 0.72rem;
+        padding: 8px 16px;
+        letter-spacing: 2px;
+    }
+
+    .btn-cta {
+        padding: 15px 35px;
+        font-size: 0.95rem;
+    }
+
+    .nav-arrow {
+        width: 42px;
+        height: 42px;
+        font-size: 1.2rem;
+    }
+
+    .nav-arrow-left {
+        left: 15px;
+    }
+
+    .nav-arrow-right {
+        right: 15px;
+    }
+
+    .dots-container {
+        bottom: 25px;
+        padding: 10px 16px;
+        gap: 8px;
+    }
+
+    .dot {
+        width: 25px;
+        height: 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .typewriter-heading {
+        font-size: 1.8rem;
+    }
+
+    .hero-content {
+        padding: 0 15px;
+    }
+
+    .nav-arrow {
+        display: none;
+    }
+
+    .btn-cta {
+        padding: 14px 28px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ==================== */
+/* RTL SUPPORT */
+/* ==================== */
+
+/* Note: slides-container direction is handled by inline transform in Hero.jsx */
+
+[dir="rtl"] .tagline {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .typewriter-heading {
+    direction: rtl;
+    text-align: center;
+}
+
+[dir="rtl"] .cursor {
+    margin-left: 0;
+    margin-right: 2px;
+}
+
+[dir="rtl"] .subtitle {
+    direction: rtl;
+}
+
+[dir="rtl"] .btn-cta {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .btn-arrow {
+    transform: scaleX(-1);
+}
+
+[dir="rtl"] .btn-cta:hover .btn-arrow {
+    transform: scaleX(-1) translateX(-4px);
+}
+
+[dir="rtl"] .floating-badge {
+    right: auto;
+    left: 12%;
+}
+
+[dir="rtl"] .nav-arrow-left {
+    left: auto;
+    right: 30px;
+}
+
+[dir="rtl"] .nav-arrow-right {
+    right: auto;
+    left: 30px;
+}
+
+[dir="rtl"] .dots-container {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .dot::after {
+    left: auto;
+    right: 0;
+}
+
+@media (max-width: 768px) {
+    [dir="rtl"] .nav-arrow-left {
+        right: 15px;
+    }
+
+    [dir="rtl"] .nav-arrow-right {
+        left: 15px;
+    }
+
+    [dir="rtl"] .floating-badge {
+        display: none;
+    }
+}
+
+@media (max-width: 1024px) {
+    [dir="rtl"] .floating-badge {
+        left: 8%;
+    }
+}
