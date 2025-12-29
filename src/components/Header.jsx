@@ -1,8 +1,24 @@
+import { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import './Header.css';
 
 const Header = () => {
-  const { t, language, toggleLanguage, isRTL } = useLanguage();
+  const { t, language, toggleLanguage } = useLanguage();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Trigger white background when leaving Hero (approx 90% of viewport height)
+      if (window.scrollY > window.innerHeight * 0.9) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { key: 'home', href: '#' },
@@ -14,7 +30,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="header">
+    <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="logo">
         <img 
           src="/ont-logo.png" 

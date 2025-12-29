@@ -40,6 +40,34 @@ export const translations = {
     badgeNumber: '#1',
     badgeText: 'Destination',
     badgeYear: '2025',
+
+    // About Section
+    about: {
+      tagline: 'National Tourism Office',
+      headline: 'Discover the Beauty of Algeria',
+      headlineHighlight: 'Beauty of Algeria',
+      description: 'From the golden dunes of the Sahara to the ancient Roman ruins and breathtaking Mediterranean coastlines. We craft unforgettable journeys tailored to your spirit of adventure.',
+      features: [
+        {
+          title: 'Your Dream, Our Heritage',
+          text: 'Experience authentic culture and world-class hospitality.'
+        },
+        {
+          title: 'Built to Last Memories',
+          text: 'Expertly guided tours through the history of North Africa.'
+        },
+        {
+          title: 'Authentic Experiences',
+          text: 'Connecting you with the heart and soul of local communities.'
+        },
+        {
+          title: 'Sustainable Tourism',
+          text: 'Preserving our natural wonders for generations to come.'
+        }
+      ],
+      cta: 'Read More About Us',
+      ctaApps: 'Download Our App'
+    }
   },
   
   ar: {
@@ -83,7 +111,35 @@ export const translations = {
     badgeNumber: '#1',
     badgeText: 'وجهة',
     badgeYear: '2025',
-  },
+
+    // About Section
+    about: {
+      tagline: 'الديوان الوطني للسياحة',
+      headline: 'اكتشف جمال الجزائر',
+      headlineHighlight: 'جمال الجزائر',
+      description: 'من الكثبان الذهبية للصحراء إلى الآثار الرومانية القديمة والسواحل المتوسطية الخلابة. نحن نصوغ رحلات لا تنسى مصممة خصيصًا لروح المغامرة لديك.',
+      features: [
+        {
+          title: 'حلمك، تراثنا',
+          text: 'جرب ثقافة أصيلة وضيافة عالمية المستوى.'
+        },
+        {
+          title: 'ذكريات تدوم',
+          text: 'جولات سياحية موجهة بخبرة عبر تاريخ شمال أفريقيا.'
+        },
+        {
+          title: 'تجارب أصيلة',
+          text: 'نربطك بقلب وروح المجتمعات المحلية.'
+        },
+        {
+          title: 'سياحة مستدامة',
+          text: 'نحافظ على عجائبنا الطبيعية للأجيال القادمة.'
+        }
+      ],
+      cta: 'اقرأ المزيد عنا',
+      ctaApps: 'حمل تطبيقنا'
+    }
+  }
 };
 
 export default translations;
