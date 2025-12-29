@@ -41,31 +41,25 @@ export const translations = {
     badgeText: 'Destination',
     badgeYear: '2025',
 
-    // About Section
+    // About Section (Institutional ONT)
     about: {
       tagline: 'National Tourism Office',
-      headline: 'Discover the Beauty of Algeria',
-      headlineHighlight: 'Beauty of Algeria',
-      description: 'From the golden dunes of the Sahara to the ancient Roman ruins and breathtaking Mediterranean coastlines. We craft unforgettable journeys tailored to your spirit of adventure.',
-      features: [
-        {
-          title: 'Your Dream, Our Heritage',
-          text: 'Experience authentic culture and world-class hospitality.'
-        },
-        {
-          title: 'Built to Last Memories',
-          text: 'Expertly guided tours through the history of North Africa.'
-        },
-        {
-          title: 'Authentic Experiences',
-          text: 'Connecting you with the heart and soul of local communities.'
-        },
-        {
-          title: 'Sustainable Tourism',
-          text: 'Preserving our natural wonders for generations to come.'
-        }
+      headline: "Who is the National Tourism Office?",
+      headlineHighlight: 'ONT',
+      description: "The ONT is the official government organ of Algeria responsible for steering the national tourism strategy through several key pillars:",
+      missions: [
+        'Promotion of National Tourism',
+        'Sustainable Tourism Development',
+        'Official Statistics & Data Analysis',
+        'International Strategic Partnerships',
+        'Professional Tourism Training'
       ],
-      cta: 'Read More About Us',
+      stats: [
+        { value: '250K+', label: 'Annual Visitors' },
+        { value: '75', label: 'Countries Represented' },
+        { value: '$45M', label: 'Annual Revenue' }
+      ],
+      cta: 'Learn more about ONT',
       ctaApps: 'Download Our App'
     }
   },
@@ -112,31 +106,25 @@ export const translations = {
     badgeText: 'وجهة',
     badgeYear: '2025',
 
-    // About Section
+    // About Section (Institutional ONT)
     about: {
       tagline: 'الديوان الوطني للسياحة',
-      headline: 'اكتشف جمال الجزائر',
-      headlineHighlight: 'جمال الجزائر',
-      description: 'من الكثبان الذهبية للصحراء إلى الآثار الرومانية القديمة والسواحل المتوسطية الخلابة. نحن نصوغ رحلات لا تنسى مصممة خصيصًا لروح المغامرة لديك.',
-      features: [
-        {
-          title: 'حلمك، تراثنا',
-          text: 'جرب ثقافة أصيلة وضيافة عالمية المستوى.'
-        },
-        {
-          title: 'ذكريات تدوم',
-          text: 'جولات سياحية موجهة بخبرة عبر تاريخ شمال أفريقيا.'
-        },
-        {
-          title: 'تجارب أصيلة',
-          text: 'نربطك بقلب وروح المجتمعات المحلية.'
-        },
-        {
-          title: 'سياحة مستدامة',
-          text: 'نحافظ على عجائبنا الطبيعية للأجيال القادمة.'
-        }
+      headline: 'من هو الديوان الوطني للسياحة؟',
+      headlineHighlight: 'الديوان',
+      description: 'الديوان الوطني للسياحة هو الهيئة الحكومية الرسمية في الجزائر المسؤولة عن توجيه استراتيجية السياحة الوطنية من خلال عدة ركائز أساسية:',
+      missions: [
+        'ترقية السياحة الوطنية',
+        'تطوير السياحة المستدامة',
+        'الإحصائيات والبيانات الرسمية',
+        'الشراكات الاستراتيجية الدولية',
+        'التكوين والتدريب المهني'
       ],
-      cta: 'اقرأ المزيد عنا',
+      stats: [
+        { value: '+250 ألف', label: 'زائر سنوياً' },
+        { value: '75', label: 'دولة ممثلة' },
+        { value: '45 مليون دولار', label: 'الإيرادات السنوية' }
+      ],
+      cta: 'تعرف أكثر على الديوان',
       ctaApps: 'حمل تطبيقنا'
     }
   }

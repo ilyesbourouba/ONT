@@ -6,56 +6,56 @@ import './AboutONT.css';
 
 const AboutONT = () => {
   const { language } = useLanguage();
-  const t = translations[language].about;
+  const content = translations[language].about;
 
   return (
     <section className="about-ont-modern">
-      <div className="about-ont-left">
-        <h4>{t.tagline}</h4>
-        <h1>
-          {t.headline.split(t.headlineHighlight)[0]}
-          <span style={{ color: 'var(--primary-red)' }}>
-            {t.headlineHighlight}
-          </span>
-          {t.headline.split(t.headlineHighlight)[1]}
-        </h1>
-        <p>{t.description}</p>
-
-        <div className="features">
-          {t.features.map((feature, index) => (
-            <div key={index} className="feature-item">
-              <div className="feature-icon">
-                {index === 0 ? (
-                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
-                      <circle cx="12" cy="10" r="3" />
-                   </svg>
-                ) : (
-                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                      <polyline points="22 4 12 14.01 9 11.01" />
-                   </svg>
-                )}
-              </div>
-              <h3>{feature.title}</h3>
-            </div>
-          ))}
+      <div className="about-container">
+        {/* Header: Always first on mobile and desktop */}
+        <div className="about-header">
+          <div className="badge-modern">
+            <h4>{content.tagline}</h4>
+          </div>
+          <h1>{content.headline}</h1>
         </div>
-        
-        <button className="read-more-btn">
-          {t.cta}
-        </button>
-      </div>
 
-      <div className="about-ont-right"> {/* Hero Images */}
-        <div className="hero-images">
-           {/* We use 2 big images as requested, stacked one on top of the other */}
+        {/* Feature/Right Column: Sandwiched on Mobile */}
+        <div className="about-right-col">
+          <div className="hero-images">
             <div className="img-card card-top">
-                <img src={aboutCard1} alt="Algeria Tourism 1" />
+              <img src={aboutCard1} alt="ONT Professional Office" />
             </div>
             <div className="img-card card-bottom">
-                <img src={aboutCard2} alt="Algeria Tourism 2" />
+              <img src={aboutCard2} alt="Tourism Development" />
             </div>
+          </div>
+        </div>
+
+        {/* Content/Left Column Body: Below images on mobile */}
+        <div className="about-left-col">
+          <p className="about-desc">{content.description}</p>
+          
+          <ul className="mission-list">
+            {content.missions.map((mission, index) => (
+              <li key={index} className="mission-item">
+                <span className="check-icon">✓</span>
+                <span className="mission-text">{mission}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="stats-row">
+            {content.stats.map((stat, index) => (
+              <div key={index} className="stat-card">
+                <span className="stat-value">{stat.value}</span>
+                <span className="stat-label">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <button className="read-more-btn">
+            {content.cta} →
+          </button>
         </div>
       </div>
     </section>
