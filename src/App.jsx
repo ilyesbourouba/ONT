@@ -2,6 +2,7 @@ import { useLanguage } from './context/LanguageContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import AboutONT from './components/AboutONT';
+import UnescoHeritage from './components/UnescoHeritage';
 import './App.css';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Header />
       <Hero />
       <AboutONT />
+      <UnescoHeritage />
     </div>
   );
 }

@@ -61,6 +61,52 @@ export const translations = {
       ],
       cta: 'Learn more about ONT',
       ctaApps: 'Download Our App'
+    },
+
+    // UNESCO Heritage Section
+    unesco: {
+      badge: 'UNESCO World Heritage',
+      headline: 'Discover Algeria\'s UNESCO World Heritage Sites',
+      description: 'Algeria is home to seven exceptional sites recognized by UNESCO for their outstanding universal value. From ancient Roman ruins to prehistoric rock art, these treasures represent millennia of human history and natural wonders.',
+      ctaExplore: 'Explore Heritage Sites',
+      ctaLearn: 'View All Sites',
+      sites: [
+        {
+          name: 'Tipasa',
+          year: 'Inscribed 1982',
+          image: 'https://images.unsplash.com/photo-1583862744804-f3cec26d8d72?auto=format&fit=crop&q=80&w=1200',
+        },
+        {
+          name: 'Djémila',
+          year: 'Inscribed 1982',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Djemila_septimius.jpg/1280px-Djemila_septimius.jpg',
+        },
+        {
+          name: 'Timgad',
+          year: 'Inscribed 1982',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Timgad_2.jpg/1280px-Timgad_2.jpg',
+        },
+        {
+          name: 'M\'Zab Valley',
+          year: 'Inscribed 1982',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Ghardaia_la_Pentapole.jpg/1280px-Ghardaia_la_Pentapole.jpg',
+        },
+        {
+          name: 'Tassili n\'Ajjer',
+          year: 'Inscribed 1982',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Tassili_Horses.jpg/1280px-Tassili_Horses.jpg',
+        },
+        {
+          name: 'Casbah of Algiers',
+          year: 'Inscribed 1992',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/La_Casbah_d%27Alger.jpg/1280px-La_Casbah_d%27Alger.jpg',
+        },
+        {
+          name: 'Béni Hammad Fort',
+          year: 'Inscribed 1980',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Qal%27a_of_Beni_Hammad03.jpg/1280px-Qal%27a_of_Beni_Hammad03.jpg',
+        }
+      ]
     }
   },
   
@@ -126,6 +172,52 @@ export const translations = {
       ],
       cta: 'تعرف أكثر على الديوان',
       ctaApps: 'حمل تطبيقنا'
+    },
+
+    // UNESCO Heritage Section
+    unesco: {
+      badge: 'التراث العالمي لليونسكو',
+      headline: 'اكتشف مواقع التراث العالمي في الجزائر',
+      description: 'تضم الجزائر سبعة مواقع استثنائية معترف بها من قبل اليونسكو لقيمتها العالمية المتميزة. من الآثار الرومانية القديمة إلى الفن الصخري ما قبل التاريخ، تمثل هذه الكنوز آلاف السنين من التاريخ البشري والعجائب الطبيعية.',
+      ctaExplore: 'استكشف مواقع التراث',
+      ctaLearn: 'عرض جميع المواقع',
+      sites: [
+        {
+          name: 'تيبازة',
+          year: 'مُدرج 1982',
+          image: 'https://images.unsplash.com/photo-1583862744804-f3cec26d8d72?auto=format&fit=crop&q=80&w=1200',
+        },
+        {
+          name: 'جميلة',
+          year: 'مُدرج 1982',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Djemila_septimius.jpg/1280px-Djemila_septimius.jpg',
+        },
+        {
+          name: 'تيمقاد',
+          year: 'مُدرج 1982',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Timgad_2.jpg/1280px-Timgad_2.jpg',
+        },
+        {
+          name: 'وادي مزاب',
+          year: 'مُدرج 1982',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Ghardaia_la_Pentapole.jpg/1280px-Ghardaia_la_Pentapole.jpg',
+        },
+        {
+          name: 'طاسيلي ناجر',
+          year: 'مُدرج 1982',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Tassili_Horses.jpg/1280px-Tassili_Horses.jpg',
+        },
+        {
+          name: 'قصبة الجزائر',
+          year: 'مُدرج 1992',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/La_Casbah_d%27Alger.jpg/1280px-La_Casbah_d%27Alger.jpg',
+        },
+        {
+          name: 'قلعة بني حماد',
+          year: 'مُدرج 1980',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Qal%27a_of_Beni_Hammad03.jpg/1280px-Qal%27a_of_Beni_Hammad03.jpg',
+        }
+      ]
     }
   }
 };
