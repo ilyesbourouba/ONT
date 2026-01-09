@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 import unesco1 from '../assets/unesco-1.jpg';
@@ -12,6 +12,12 @@ const UnescoHeritage = () => {
   
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  // Drag/Swipe state
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [dragCurrentX, setDragCurrentX] = useState(0);
+  const carouselRef = useRef(null);
 
   // Local images for the sites
   const localImages = [unesco1, unesco2, unesco3, unesco1, unesco2, unesco3, unesco1];
@@ -22,21 +28,59 @@ const UnescoHeritage = () => {
   }));
 
   const handlePrev = () => {
+    if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => (prev === 0 ? sites.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
+    if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => (prev === sites.length - 1 ? 0 : prev + 1));
   };
 
   useEffect(() => {
     if (isTransitioning) {
-      const timer = setTimeout(() => setIsTransitioning(false), 800); // 800ms match
+      const timer = setTimeout(() => setIsTransitioning(false), 800);
       return () => clearTimeout(timer);
     }
   }, [currentIndex, isTransitioning]);
+
+  // Drag/Swipe handlers
+  const handleDragStart = (e) => {
+    if (isTransitioning) return;
+    setIsDragging(true);
+    const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+    setDragStartX(clientX);
+    setDragCurrentX(clientX);
+  };
+
+  const handleDragMove = (e) => {
+    if (!isDragging) return;
+    const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+    setDragCurrentX(clientX);
+  };
+
+  const handleDragEnd = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    
+    const dragDistance = dragCurrentX - dragStartX;
+    const threshold = 50; // Minimum drag distance to trigger navigation
+    
+    if (Math.abs(dragDistance) > threshold) {
+      // Adjust direction based on RTL
+      const shouldGoNext = isRTL ? dragDistance > 0 : dragDistance < 0;
+      if (shouldGoNext) {
+        handleNext();
+      } else {
+        handlePrev();
+      }
+    }
+    
+    setDragStartX(0);
+    setDragCurrentX(0);
+  };
 
   // Carousel Logic with smooth transitions
   const getCardStyle = (index) => {
@@ -109,6 +153,7 @@ const UnescoHeritage = () => {
   };
 
   const handleCardClick = (idx) => {
+    if (isTransitioning) return;
     let dist = (idx - currentIndex) % sites.length;
     if (dist < 0) dist += sites.length;
     if (dist > sites.length / 2) dist -= sites.length;
@@ -120,6 +165,9 @@ const UnescoHeritage = () => {
   };
 
   const currentSite = sites[currentIndex];
+
+  // Calculate drag offset for visual feedback
+  const dragOffset = isDragging ? dragCurrentX - dragStartX : 0;
 
   return (
     <section 
@@ -140,16 +188,29 @@ const UnescoHeritage = () => {
         </div>
 
         <div className="unesco-carousel">
-          <div className="unesco-cards-track">
+          <div 
+            ref={carouselRef}
+            className={`unesco-cards-track ${isDragging ? 'is-dragging' : ''}`}
+            onMouseDown={handleDragStart}
+            onMouseMove={handleDragMove}
+            onMouseUp={handleDragEnd}
+            onMouseLeave={handleDragEnd}
+            onTouchStart={handleDragStart}
+            onTouchMove={handleDragMove}
+            onTouchEnd={handleDragEnd}
+            style={{
+              transform: isDragging ? `translateX(${dragOffset * 0.3}px)` : 'none'
+            }}
+          >
             {sites.map((site, idx) => (
               <div 
-                key={idx} // Stable key based on original index
+                key={idx}
                 className={`unesco-card ${idx === currentIndex ? 'unesco-card-main' : ''}`}
                 style={{ 
                   backgroundImage: `url('${site.image}')`,
                   ...getCardStyle(idx)
                 }}
-                onClick={() => handleCardClick(idx)}
+                onClick={() => !isDragging && handleCardClick(idx)}
               >
                 <div className="unesco-card-info">
                   <h3>{site.name}</h3>

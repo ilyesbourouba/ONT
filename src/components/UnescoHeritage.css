@@ -10,7 +10,6 @@
     background-attachment: fixed;
     color: #ffffff;
     overflow: hidden;
-    transition: background-image 0.8s ease-in-out;
 }
 
 .unesco-container {
@@ -114,6 +113,18 @@
     width: 600px;
     height: 400px;
     margin-bottom: 40px;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+}
+
+.unesco-cards-track.is-dragging {
+    cursor: grabbing;
+}
+
+.unesco-cards-track.is-dragging .unesco-card {
+    pointer-events: none;
 }
 
 .unesco-card {
