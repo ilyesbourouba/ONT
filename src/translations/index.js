@@ -107,6 +107,37 @@ export const translations = {
           image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Qal%27a_of_Beni_Hammad03.jpg/1280px-Qal%27a_of_Beni_Hammad03.jpg',
         }
       ]
+    },
+
+    // Activities Section
+    activities: {
+      badge: 'Latest Activities',
+      headline: 'Upcoming Events & Activities',
+      exploreBtn: 'Explore Activity',
+      viewAllBtn: 'View All Activities',
+      items: [
+        {
+          name: 'Sahara Desert Festival',
+          description: 'Experience the magic of the Sahara with traditional Tuareg music, camel races, and spectacular sunsets over the golden dunes. A cultural celebration unlike any other.',
+          date: 'March 15-20, 2025',
+          tags: ['Festival', 'Culture'],
+          image: 'https://images.unsplash.com/photo-1451337516015-6b6e9a44a8a3?auto=format&fit=crop&q=80&w=1200'
+        },
+        {
+          name: 'Timgad International Festival',
+          description: 'Join the renowned music festival at the ancient Roman ruins of Timgad. World-class performers against the backdrop of 2000-year-old architecture creates an unforgettable experience.',
+          date: 'July 10-18, 2025',
+          tags: ['Music', 'Heritage'],
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Timgad_2.jpg/1280px-Timgad_2.jpg'
+        },
+        {
+          name: 'Mediterranean Coastal Tour',
+          description: 'Discover Algeria\'s stunning 1,200km coastline with pristine beaches, hidden coves, and charming coastal towns. Crystal-clear waters and fresh seafood await.',
+          date: 'May 1 - September 30, 2025',
+          tags: ['Beach', 'Nature'],
+          image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=1200'
+        }
+      ]
     }
   },
   
@@ -216,6 +247,37 @@ export const translations = {
           name: 'قلعة بني حماد',
           year: 'مُدرج 1980',
           image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Qal%27a_of_Beni_Hammad03.jpg/1280px-Qal%27a_of_Beni_Hammad03.jpg',
+        }
+      ]
+    },
+
+    // Activities Section
+    activities: {
+      badge: 'أحدث النشاطات',
+      headline: 'الفعاليات والأنشطة القادمة',
+      exploreBtn: 'استكشف النشاط',
+      viewAllBtn: 'عرض جميع النشاطات',
+      items: [
+        {
+          name: 'مهرجان الصحراء',
+          description: 'اختبر سحر الصحراء الكبرى مع الموسيقى التارقية التقليدية وسباقات الجمال وغروب الشمس الخلاب فوق الكثبان الذهبية. احتفال ثقافي لا مثيل له.',
+          date: '15-20 مارس 2025',
+          tags: ['مهرجان', 'ثقافة'],
+          image: 'https://images.unsplash.com/photo-1451337516015-6b6e9a44a8a3?auto=format&fit=crop&q=80&w=1200'
+        },
+        {
+          name: 'المهرجان الدولي لتيمقاد',
+          description: 'انضم إلى المهرجان الموسيقي الشهير في الأطلال الرومانية القديمة بتيمقاد. فنانون عالميون على خلفية معمارية عمرها 2000 عام تخلق تجربة لا تُنسى.',
+          date: '10-18 جويلية 2025',
+          tags: ['موسيقى', 'تراث'],
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Timgad_2.jpg/1280px-Timgad_2.jpg'
+        },
+        {
+          name: 'جولة الساحل المتوسطي',
+          description: 'اكتشف الساحل الجزائري الخلاب الممتد على 1,200 كم مع شواطئ بكر وخلجان مخفية ومدن ساحلية ساحرة. مياه صافية ومأكولات بحرية طازجة في انتظارك.',
+          date: '1 ماي - 30 سبتمبر 2025',
+          tags: ['شاطئ', 'طبيعة'],
+          image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=1200'
         }
       ]
     }

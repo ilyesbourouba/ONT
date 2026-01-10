@@ -1,0 +1,349 @@
+/* ==================== */
+/* ACTIVITY SECTION - GSAP SCROLL ANIMATION */
+/* ==================== */
+
+.activity-section {
+    position: relative;
+    background: #fff;
+}
+
+/* Section Header */
+.activity-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    padding: 60px 8% 10px;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.activity-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #d32f2f;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-top: 20px;
+}
+
+.activity-badge::before {
+    content: '';
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, #d32f2f, #ff6659);
+    border-radius: 2px;
+}
+
+.activity-headline {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #1a1a2e;
+    letter-spacing: -1px;
+    margin: 0;
+}
+
+/* Activity Slides */
+.activity-slides-container {
+    position: relative;
+}
+
+.activity-slide {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+}
+
+/* Subtle overlay for depth */
+.activity-slide::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.02);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s;
+}
+
+/* Left Visual Side - Full Background Image */
+.activity-visual {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 0;
+}
+
+.activity-number {
+    position: absolute;
+    top: 20%;
+    right: 8%;
+    font-size: 12rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.15);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 2;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+[dir="rtl"] .activity-number {
+    right: auto;
+    left: 8%;
+}
+
+.activity-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.activity-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.activity-visual:hover .activity-image img {
+    transform: scale(1.05);
+}
+
+/* Dark overlay for better text contrast */
+.activity-visual::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Right Content Side */
+.activity-content {
+    flex: 1;
+    padding: 8% 8% 8% 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+}
+
+[dir="rtl"] .activity-content {
+    padding: 8% 5% 8% 8%;
+}
+
+.activity-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.activity-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    color: #e65100;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 20px;
+}
+
+.activity-name {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: #1a1a2e;
+    line-height: 1.15;
+    margin: 0 0 25px 0;
+    letter-spacing: -1.5px;
+}
+
+.activity-description {
+    color: #5a6677;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    max-width: 480px;
+}
+
+.activity-date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #8892a6;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 35px;
+}
+
+.activity-date svg {
+    color: #d32f2f;
+}
+
+.activity-explore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #1a1a2e;
+    color: #fff;
+    padding: 16px 36px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(26, 26, 46, 0.2);
+    width: fit-content;
+}
+
+.activity-explore-btn:hover {
+    background: #d32f2f;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(211, 47, 47, 0.35);
+}
+
+.activity-explore-btn span {
+    transition: transform 0.3s ease;
+}
+
+.activity-explore-btn:hover span {
+    transform: translateX(5px);
+}
+
+[dir="rtl"] .activity-explore-btn:hover span {
+    transform: translateX(-5px);
+}
+
+/* Footer - View All Button */
+.activity-footer {
+    display: flex;
+    justify-content: center;
+    padding: 80px 8%;
+    background: #fff;
+    border-top: 1px solid #f0f0f0;
+}
+
+.view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    color: #1a1a2e;
+    padding: 18px 48px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 2px solid #1a1a2e;
+    border-radius: 50px;
+    transition: all 0.4s ease;
+}
+
+.view-all-btn:hover {
+    background: #1a1a2e;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(26, 26, 46, 0.2);
+}
+
+.view-all-btn span {
+    transition: transform 0.3s ease;
+}
+
+.view-all-btn:hover span {
+    transform: translateX(5px);
+}
+
+[dir="rtl"] .view-all-btn:hover span {
+    transform: translateX(-5px);
+}
+
+/* ==================== */
+/* RESPONSIVE DESIGN */
+/* ==================== */
+
+@media (max-width: 1024px) {
+    .activity-slide {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .activity-visual {
+        min-height: 50vh;
+        padding: 8%;
+    }
+
+    .activity-number {
+        font-size: 8rem;
+        top: 10%;
+        right: 5%;
+    }
+
+    .activity-content {
+        padding: 8%;
+    }
+
+    .activity-name {
+        font-size: 2.5rem;
+    }
+
+    .activity-headline {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .activity-header {
+        padding: 40px 5% 30px;
+    }
+
+    .activity-headline {
+        font-size: 1.8rem;
+    }
+
+    .activity-visual {
+        min-height: 40vh;
+        padding: 5%;
+    }
+
+    .activity-number {
+        font-size: 5rem;
+    }
+
+    .activity-content {
+        padding: 6% 5%;
+    }
+
+    .activity-name {
+        font-size: 2rem;
+    }
+
+    .activity-description {
+        font-size: 1rem;
+    }
+
+    .activity-footer {
+        padding: 50px 5%;
+    }
+}
