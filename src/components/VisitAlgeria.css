@@ -1,0 +1,459 @@
+/* =============================================
+   VISIT ALGERIA SECTION - Crafto Inspired Design
+   ============================================= */
+
+/* --- BASE SECTION --- */
+.visit-algeria-section {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1a1a1a;
+    overflow-x: hidden;
+}
+
+/* --- HEADER SECTION --- */
+.visit-header {
+    text-align: center;
+    padding: 100px 20px 80px;
+    background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
+}
+
+.visit-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    color: #2e7d32;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+}
+
+.visit-header h1 {
+    font-family: 'Manrope', 'Inter', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    color: #111;
+}
+
+.visit-header p {
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto 32px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.btn-explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+    color: white;
+    padding: 16px 36px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-explore:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.btn-explore svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-explore:hover svg {
+    transform: translateX(4px);
+}
+
+/* --- VIDEO BANNER SECTION --- */
+.video-wrapper {
+    padding: 20px 40px 60px;
+}
+
+.video-banner {
+    width: 100%;
+    min-height: 500px;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: 50px 60px;
+
+    /* Scroll Animation Initial State */
+    transform: scale(0.88);
+    opacity: 0.7;
+    transform-origin: center center;
+    transition: transform 1.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+        opacity 1s ease,
+        box-shadow 1s ease;
+}
+
+.video-banner.scroll-active {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+}
+
+.video-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 0.2) 40%,
+            rgba(0, 0, 0, 0.75) 100%);
+    z-index: 1;
+}
+
+.video-text {
+    position: relative;
+    z-index: 2;
+    color: white;
+    max-width: 550px;
+}
+
+.video-text h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.2;
+    font-weight: 700;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.play-btn {
+    position: absolute;
+    bottom: 50px;
+    right: 60px;
+    width: 70px;
+    height: 70px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 2;
+}
+
+.play-btn:hover {
+    background: white;
+    transform: scale(1.1);
+    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+}
+
+.play-btn svg {
+    fill: white;
+    transition: all 0.3s;
+    margin-left: 4px;
+}
+
+.play-btn:hover svg {
+    fill: #1a1a1a;
+}
+
+/* --- VIDEO MODAL POPUP --- */
+.video-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.video-modal {
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
+    transform: scale(0.9);
+    animation: scaleUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes scaleUp {
+    to {
+        transform: scale(1);
+    }
+}
+
+.video-modal-close {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+.video-modal-close:hover {
+    transform: rotate(90deg);
+}
+
+.video-modal-content {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5);
+}
+
+.video-modal-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* --- DESTINATIONS SECTION --- */
+.destinations-section {
+    padding: 100px 40px;
+    background: linear-gradient(180deg, #fdfbf7 0%, #f8f5f0 100%);
+}
+
+.destinations-header {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.destinations-header h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: #222;
+    margin-bottom: 16px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.destinations-header p {
+    font-family: 'Inter', sans-serif;
+    color: #888;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+/* --- DESTINATIONS GRID --- */
+.destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 45px 30px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.destination-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.destination-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.destination-card {
+    width: 100%;
+    height: 280px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    position: relative;
+}
+
+.destination-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.destination-card:hover::after {
+    opacity: 1;
+}
+
+.destination-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.destination-card:hover img {
+    transform: scale(1.12);
+}
+
+.destination-item h4 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.destination-item:hover h4 {
+    color: #2e7d32;
+}
+
+/* --- CTA SECTION --- */
+.visit-cta-section {
+    text-align: center;
+    padding: 60px 20px 100px;
+    background: linear-gradient(180deg, #f8f5f0 0%, #ffffff 100%);
+}
+
+.visit-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 40px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 8px 30px rgba(46, 125, 50, 0.3);
+}
+
+.visit-cta-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 45px rgba(46, 125, 50, 0.4);
+}
+
+.visit-cta-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.visit-cta-btn:hover svg {
+    transform: translateX(5px);
+}
+
+/* --- RTL SUPPORT --- */
+[dir="rtl"] .visit-header,
+[dir="rtl"] .destinations-header {
+    direction: rtl;
+}
+
+[dir="rtl"] .video-text {
+    text-align: right;
+}
+
+[dir="rtl"] .play-btn {
+    right: auto;
+    left: 60px;
+}
+
+[dir="rtl"] .play-btn svg {
+    margin-left: 0;
+    margin-right: 4px;
+    transform: scaleX(-1);
+}
+
+[dir="rtl"] .btn-explore svg,
+[dir="rtl"] .visit-cta-btn svg {
+    transform: scaleX(-1);
+}
+
+[dir="rtl"] .btn-explore:hover svg,
+[dir="rtl"] .visit-cta-btn:hover svg {
+    transform: scaleX(-1) translateX(-4px);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+    .destinations-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 35px 25px;
+    }
+
+    .video-wrapper {
+        padding: 20px;
+    }
+
+    .video-banner {
+        min-height: 400px;
+        padding: 40px;
+    }
+
+    .play-btn {
+        bottom: 40px;
+        right: 40px;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .visit-header {
+        padding: 70px 20px 50px;
+    }
+
+    .destinations-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+
+    .destination-card {
+        height: 240px;
+    }
+
+    .video-banner {
+        min-height: 350px;
+        border-radius: 16px;
+    }
+
+    .video-text h2 {
+        font-size: 1.6rem;
+    }
+
+    .destinations-section {
+        padding: 70px 20px;
+    }
+}

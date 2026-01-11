@@ -1,23 +1,39 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useLanguage } from './context/LanguageContext';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import AboutONT from './components/AboutONT';
-import UnescoHeritage from './components/UnescoHeritage';
-import ActivitySection from './components/ActivitySection';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+import NewsPage from './pages/NewsPage';
+import ArticleDetailPage from './pages/ArticleDetailPage';
+import VirtualTourPage from './pages/VirtualTourPage';
 import './App.css';
 
 function App() {
   const { isRTL } = useLanguage();
 
   return (
-    <div className={`app ${isRTL ? 'rtl' : 'ltr'}`}>
-      <Header />
-      <Hero />
-      <AboutONT />
-      <ActivitySection />
-      <UnescoHeritage />
-    </div>
+    <Router>
+      <div className={`app ${isRTL ? 'rtl' : 'ltr'}`}>
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/news" element={<NewsPage />} />
+            <Route path="/news/:id" element={<ArticleDetailPage />} />
+            <Route path="/virtual-tour" element={<VirtualTourPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
+
 export default App;
+
+

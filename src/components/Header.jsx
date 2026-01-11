@@ -1,37 +1,41 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import './Header.css';
 
 const Header = () => {
   const { t, language, toggleLanguage } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
       // Trigger white background when leaving Hero (approx 90% of viewport height)
-      if (window.scrollY > window.innerHeight * 0.9) {
+      if (window.scrollY > window.innerHeight * 0.9 || !isHomePage) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
     };
 
+    handleScroll(); // Check initial state
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   const navLinks = [
-    { key: 'home', href: '#' },
-    { key: 'destinations', href: '#' },
-    { key: 'heritage', href: '#' },
-    { key: 'events', href: '#' },
-    { key: 'planTrip', href: '#' },
-    { key: 'contact', href: '#' },
+    { key: 'home', to: '/' },
+    { key: 'aboutUs', to: '/about' },
+    { key: 'news', to: '/news' },
+    { key: 'tourGuide', to: '/virtual-tour' },
+    { key: 'planTrip', to: '/#planTrip' },
+    { key: 'contact', to: '/contact' },
   ];
 
   return (
-    <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="logo">
+    <header className={`header ${isScrolled || !isHomePage ? 'scrolled' : ''}`}>
+      <Link to="/" className="logo">
         <img 
           src="/ont-logo.png" 
           alt="ONT Logo" 
@@ -40,13 +44,17 @@ const Header = () => {
         <span className="logo-text">
           {t.logoText} <span className="logo-highlight">{t.logoHighlight}</span>
         </span>
-      </div>
+      </Link>
       
       <nav>
         <ul className="nav-links">
           {navLinks.map((link) => (
             <li key={link.key}>
-              <a href={link.href}>{t.nav[link.key]}</a>
+              {link.to.startsWith('/#') ? (
+                <a href={link.to.substring(1)}>{t.nav[link.key]}</a>
+              ) : (
+                <Link to={link.to}>{t.nav[link.key]}</Link>
+              )}
             </li>
           ))}
         </ul>
@@ -65,3 +73,4 @@ const Header = () => {
 };
 
 export default Header;
+

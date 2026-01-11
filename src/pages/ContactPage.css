@@ -1,0 +1,361 @@
+.contact-page {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Hero Section */
+.contact-hero {
+    height: 400px;
+    background: url('https://images.unsplash.com/photo-1521737706041-83d0c2f82173?q=80\u0026w=2070\u0026auto=format\u0026fit=crop') center/cover no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 5rem;
+    font-weight: 800;
+    font-family: 'Manrope', sans-serif;
+    margin: 0;
+}
+
+/* Info Section */
+.contact-info-section {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.info-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 80px;
+}
+
+.badge {
+    color: #4f46e5;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.info-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+.intro-text {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.8;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.info-card {
+    padding-bottom: 30px;
+    border-bottom: 2px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    border-color: #4f46e5;
+}
+
+.info-card .icon {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.info-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #111;
+}
+
+.info-card p {
+    color: #666;
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+
+/* CTA Ribbon */
+.cta-ribbon {
+    background: linear-gradient(90deg, #ff6b6b, #4f46e5);
+    padding: 25px 0;
+    text-align: center;
+    color: white;
+}
+
+.ribbon-content p {
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.ribbon-content a {
+    color: white;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+/* Map Section */
+.map-section {
+    padding: 100px 0;
+    background: #f8f9fa;
+    overflow: hidden;
+}
+
+.map-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.map-background-text {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    font-size: 12rem;
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.03);
+    pointer-events: none;
+    line-height: 1;
+}
+
+.map-widget {
+    position: relative;
+    max-width: 1000px;
+    margin-left: auto;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.map-overlay-card {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    background: white;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    text-align: center;
+}
+
+.map-overlay-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.map-overlay-card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.view-map-btn {
+    background: #111;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Form Section */
+.form-section {
+    padding: 120px 0;
+    background: #fdfdfd;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.form-header h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-top: 10px;
+}
+
+.contact-form {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #111;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 15px 20px;
+    border: 1px solid #eee;
+    background: #f9f9f9;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    background: white;
+    border-color: #4f46e5;
+    outline: none;
+}
+
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.privacy-note {
+    font-size: 0.85rem;
+    color: #999;
+    line-height: 1.5;
+    flex: 1;
+}
+
+.submit-btn {
+    background: #111;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    background: #4f46e5;
+    transform: translateY(-2px);
+}
+
+/* RTL Support */
+[dir=\"rtl\"] .hero-content h1 {
+    font-family: 'Manrope', sans-serif;
+    /* Keep same font or pick arabic display font */
+}
+
+[dir=\"rtl\"] .info-card {
+    text-align: right;
+}
+
+[dir=\"rtl\"] .map-widget {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+[dir=\"rtl\"] .map-overlay-card {
+    right: auto;
+    left: 50px;
+}
+
+[dir=\"rtl\"] .form-footer {
+    flex-direction: row-reverse;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+
+    .map-background-text {
+        display: none;
+    }
+
+    .map-widget {
+        margin: 0;
+    }
+
+    .map-overlay-card {
+        position: static;
+        width: 100%;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full-width {
+        grid-column: span 1;
+    }
+
+    .form-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .info-header h2 {
+        font-size: 2rem;
+    }
+}
