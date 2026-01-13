@@ -97,7 +97,7 @@ const Hero = () => {
       </div>
 
       {/* Glow Circle */}
-      <div className="glow-circle"></div>
+      {/* <div className="glow-circle"></div> */}
 
       {/* Floating Badge */}
       <div className="floating-badge">
