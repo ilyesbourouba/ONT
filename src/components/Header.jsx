@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import ontLogo from '../assets/ont-logo.png';
 import './Header.css';
 
 const Header = () => {
@@ -37,7 +38,7 @@ const Header = () => {
     <header className={`header ${isScrolled || !isHomePage ? 'scrolled' : ''}`}>
       <Link to="/" className="logo">
         <img 
-          src="/ont-logo.png" 
+          src={ontLogo} 
           alt="ONT Logo" 
           className="logo-img"
         />

@@ -70,8 +70,12 @@
 }
 
 [dir="rtl"] .nav-links {
-  flex-direction: row-reverse;
   gap: 35px;
+}
+
+[dir="rtl"] .nav-links li a {
+  direction: rtl;
+  text-align: right;
 }
 
 .nav-links li a {

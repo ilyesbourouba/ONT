@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
+import ontLogo from '../assets/ont-logo.png';
 import './Footer.css';
 
 const Footer = () => {
@@ -16,7 +17,7 @@ const Footer = () => {
         {/* Logo Section */}
         <div className="footer-column footer-logo-section">
           <div className="footer-logo">
-            <img src="/footer-logo.png" alt="ONT Logo" className="footer-logo-img" />
+            <img src={ontLogo} alt="ONT Logo" className="footer-logo-img" />
           </div>
           <p className="footer-tagline">{footerContent.tagline}</p>
           <div className="footer-socials">
