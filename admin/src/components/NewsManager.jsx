@@ -3,6 +3,7 @@ import { newsAPI, uploadAPI } from '../services/api';
 import DataTable from './DataTable';
 import Modal from './Modal';
 import ImageUpload from './ImageUpload';
+import RichTextEditor from './RichTextEditor';
 import { showSuccess, showError, confirmDelete } from '../utils/toast';
 import './Manager.css';
 
@@ -99,7 +100,6 @@ const NewsManager = () => {
     { key: 'title_en', label: 'Title (EN)' },
     { key: 'category', label: 'Category' },
     { key: 'author', label: 'Author' },
-    { key: 'likes', label: 'Likes' },
   ];
 
   return (
@@ -117,7 +117,7 @@ const NewsManager = () => {
       />
 
       {showModal && (
-        <Modal title={editItem ? 'Edit News' : 'Add News'} onClose={closeModal}>
+        <Modal title={editItem ? 'Edit News' : 'Add News'} onClose={closeModal} size="large">
           <form onSubmit={handleSubmit} className="manager-form">
             <div className="form-row">
               <div className="form-group">
@@ -142,23 +142,19 @@ const NewsManager = () => {
             <div className="form-row">
               <div className="form-group">
                 <label>Content (English)</label>
-                <textarea 
+                <RichTextEditor 
                   value={formData.content_en} 
-                  onChange={(e) => setFormData({...formData, content_en: e.target.value})} 
-                  rows="6" 
+                  onChange={(value) => setFormData({...formData, content_en: value})} 
                   placeholder="Full news content..."
-                  className="content-textarea"
                 />
               </div>
               <div className="form-group">
                 <label>Content (Arabic)</label>
-                <textarea 
+                <RichTextEditor 
                   value={formData.content_ar} 
-                  onChange={(e) => setFormData({...formData, content_ar: e.target.value})} 
-                  rows="6" 
-                  dir="rtl" 
+                  onChange={(value) => setFormData({...formData, content_ar: value})} 
                   placeholder="المحتوى الكامل للخبر..."
-                  className="content-textarea"
+                  dir="rtl"
                 />
               </div>
             </div>

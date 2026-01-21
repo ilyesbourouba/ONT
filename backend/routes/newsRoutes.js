@@ -5,8 +5,7 @@ const {
   getNewsById,
   createNews,
   updateNews,
-  deleteNews,
-  likeNews
+  deleteNews
 } = require('../controller/newsController');
 const { authMiddleware } = require('../middleware/authMiddleware');
 const { newsValidation, idValidation, paginationValidation, validate } = require('../utils/validators');
@@ -14,7 +13,6 @@ const { newsValidation, idValidation, paginationValidation, validate } = require
 // Public routes
 router.get('/', paginationValidation, validate, getAllNews);
 router.get('/:id', idValidation, validate, getNewsById);
-router.post('/:id/like', idValidation, validate, likeNews);
 
 // Protected routes
 router.post('/', authMiddleware, newsValidation, validate, createNews);

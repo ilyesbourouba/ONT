@@ -122,6 +122,52 @@
     font-size: 1.15rem;
     line-height: 2;
     color: #444;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Rich text content styling */
+.main-content p {
+    margin-bottom: 1.5em;
+}
+
+.main-content strong,
+.main-content b {
+    font-weight: 700;
+    color: #111;
+}
+
+.main-content em,
+.main-content i {
+    font-style: italic;
+}
+
+.main-content u {
+    text-decoration: underline;
+}
+
+.main-content s {
+    text-decoration: line-through;
+}
+
+.main-content ul,
+.main-content ol {
+    margin: 1.5em 0;
+    padding-left: 2em;
+}
+
+.main-content li {
+    margin-bottom: 0.5em;
+}
+
+.main-content a {
+    color: #003366;
+    text-decoration: underline;
+}
+
+.main-content a:hover {
+    color: #004d99;
 }
 
 .article-footer {

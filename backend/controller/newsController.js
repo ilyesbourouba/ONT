@@ -107,24 +107,3 @@ exports.deleteNews = asyncHandler(async (req, res) => {
     message: 'Article deleted successfully'
   });
 });
-
-/**
- * @desc    Like news article
- * @route   POST /api/news/:id/like
- * @access  Public
- */
-exports.likeNews = asyncHandler(async (req, res) => {
-  const article = await News.incrementLikes(req.params.id);
-  
-  if (!article) {
-    return res.status(404).json({
-      success: false,
-      message: 'Article not found'
-    });
-  }
-  
-  res.json({
-    success: true,
-    data: { likes: article.likes }
-  });
-});

@@ -87,14 +87,6 @@ class News {
     const [result] = await db.query('DELETE FROM news WHERE id = ?', [id]);
     return result.affectedRows > 0;
   }
-
-  /**
-   * Increment likes
-   */
-  static async incrementLikes(id) {
-    await db.query('UPDATE news SET likes = likes + 1 WHERE id = ?', [id]);
-    return this.findById(id);
-  }
 }
 
 module.exports = News;

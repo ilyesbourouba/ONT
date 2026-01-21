@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { unescoAPI } from '../services/api';
+import { unescoAPI, uploadAPI } from '../services/api';
 import DataTable from './DataTable';
 import Modal from './Modal';
+import ImageUpload from './ImageUpload';
+import { showSuccess, showError, confirmDelete } from '../utils/toast';
 import './Manager.css';
 
 const UnescoManager = () => {
@@ -9,6 +11,7 @@ const UnescoManager = () => {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editItem, setEditItem] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name_en: '', name_ar: '', year_inscribed: '', image: '', description_en: '', description_ar: ''
   });
@@ -16,24 +19,55 @@ const UnescoManager = () => {
   useEffect(() => { fetchItems(); }, []);
 
   const fetchItems = async () => {
-    try { const response = await unescoAPI.getAll(); setItems(response.data || []); }
-    catch (error) { console.error('Error:', error); }
+    try { 
+      const response = await unescoAPI.getAll(); 
+      setItems(response.data || []); 
+    }
+    catch (error) { 
+      showError('Failed to fetch UNESCO sites: ' + error.message);
+    }
     finally { setLoading(false); }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
-      if (editItem) { await unescoAPI.update(editItem.id, formData); }
-      else { await unescoAPI.create(formData); }
+      let dataToSave = { ...formData };
+      
+      // If image is base64, upload it first and get the URL
+      if (formData.image && formData.image.startsWith('data:image/')) {
+        const uploadResult = await uploadAPI.uploadBase64(formData.image);
+        if (uploadResult.success) {
+          dataToSave.image = uploadResult.data.url;
+        }
+      }
+      
+      if (editItem) { 
+        await unescoAPI.update(editItem.id, dataToSave);
+        showSuccess('UNESCO site updated successfully!');
+      }
+      else { 
+        await unescoAPI.create(dataToSave);
+        showSuccess('UNESCO site created successfully!');
+      }
       fetchItems(); closeModal();
-    } catch (error) { alert(error.message); }
+    } catch (error) { 
+      showError(error.message || 'Operation failed');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Delete this UNESCO site?')) {
-      try { await unescoAPI.delete(id); fetchItems(); }
-      catch (error) { alert(error.message); }
+    const confirmed = await confirmDelete('this UNESCO site');
+    if (confirmed) {
+      try { 
+        await unescoAPI.delete(id); 
+        showSuccess('UNESCO site deleted successfully!');
+        fetchItems(); 
+      }
+      catch (error) { showError(error.message || 'Failed to delete'); }
     }
   };
 
@@ -56,21 +90,25 @@ const UnescoManager = () => {
       <div className="manager-header"><button className="add-btn" onClick={() => openModal()}>+ Add UNESCO Site</button></div>
       <DataTable columns={columns} data={items} loading={loading} onEdit={openModal} onDelete={handleDelete} />
       {showModal && (
-        <Modal title={editItem ? 'Edit UNESCO Site' : 'Add UNESCO Site'} onClose={closeModal}>
+        <Modal title={editItem ? 'Edit UNESCO Site' : 'Add UNESCO Site'} onClose={closeModal} size="large">
           <form onSubmit={handleSubmit} className="manager-form">
             <div className="form-row">
-              <div className="form-group"><label>Name (EN)</label><input value={formData.name_en} onChange={(e) => setFormData({...formData, name_en: e.target.value})} required /></div>
+              <div className="form-group"><label>Name (EN) *</label><input value={formData.name_en} onChange={(e) => setFormData({...formData, name_en: e.target.value})} required /></div>
               <div className="form-group"><label>Name (AR)</label><input value={formData.name_ar} onChange={(e) => setFormData({...formData, name_ar: e.target.value})} dir="rtl" /></div>
             </div>
             <div className="form-group"><label>Year Inscribed</label><input value={formData.year_inscribed} onChange={(e) => setFormData({...formData, year_inscribed: e.target.value})} placeholder="Inscribed 1982" /></div>
-            <div className="form-group"><label>Image URL</label><input value={formData.image} onChange={(e) => setFormData({...formData, image: e.target.value})} /></div>
+            <ImageUpload 
+              label="UNESCO Site Image"
+              value={formData.image}
+              onChange={(value) => setFormData({...formData, image: value})}
+            />
             <div className="form-row">
               <div className="form-group"><label>Description (EN)</label><textarea value={formData.description_en} onChange={(e) => setFormData({...formData, description_en: e.target.value})} rows="3" /></div>
               <div className="form-group"><label>Description (AR)</label><textarea value={formData.description_ar} onChange={(e) => setFormData({...formData, description_ar: e.target.value})} rows="3" dir="rtl" /></div>
             </div>
             <div className="form-actions">
-              <button type="button" className="cancel-btn" onClick={closeModal}>Cancel</button>
-              <button type="submit" className="submit-btn">{editItem ? 'Update' : 'Create'}</button>
+              <button type="button" className="cancel-btn" onClick={closeModal} disabled={submitting}>Cancel</button>
+              <button type="submit" className="submit-btn" disabled={submitting}>{submitting ? 'Saving...' : (editItem ? 'Update' : 'Create')}</button>
             </div>
           </form>
         </Modal>

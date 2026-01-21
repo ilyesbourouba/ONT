@@ -119,9 +119,10 @@ const ArticleDetailPage = () => {
         <div className="container narrow">
           <div className="article-text">
             <p className="lead-text">{displayArticle.excerpt}</p>
-            <div className="main-content">
-              {displayArticle.content}
-            </div>
+            <div 
+              className="main-content"
+              dangerouslySetInnerHTML={{ __html: displayArticle.content }}
+            />
           </div>
 
           <div className="article-footer">

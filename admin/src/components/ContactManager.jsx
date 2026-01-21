@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { contactAPI } from '../services/api';
 import DataTable from './DataTable';
 import Modal from './Modal';
+import { showSuccess, showError, confirmDelete } from '../utils/toast';
 import './Manager.css';
 
 const ContactManager = () => {
@@ -12,15 +13,25 @@ const ContactManager = () => {
   useEffect(() => { fetchItems(); }, []);
 
   const fetchItems = async () => {
-    try { const response = await contactAPI.getAll(1, 100); setItems(response.data || []); }
-    catch (error) { console.error('Error:', error); }
+    try { 
+      const response = await contactAPI.getAll(1, 100); 
+      setItems(response.data || []); 
+    }
+    catch (error) { 
+      showError('Failed to fetch contacts: ' + error.message);
+    }
     finally { setLoading(false); }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Delete this contact submission?')) {
-      try { await contactAPI.delete(id); fetchItems(); }
-      catch (error) { alert(error.message); }
+    const confirmed = await confirmDelete('this contact submission');
+    if (confirmed) {
+      try { 
+        await contactAPI.delete(id); 
+        showSuccess('Contact deleted successfully!');
+        fetchItems(); 
+      }
+      catch (error) { showError(error.message || 'Failed to delete'); }
     }
   };
 
