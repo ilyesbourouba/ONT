@@ -1,14 +1,60 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { contactAPI } from '../services/api';
 import './ContactPage.css';
 
 const ContactPage = () => {
   const { t, isRTL } = useLanguage();
   const content = t.contactPage;
+  
+  // Form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSubmitStatus({ type: '', message: '' });
+
+    try {
+      const response = await contactAPI.submit(formData);
+      if (response.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: isRTL 
+            ? 'تم إرسال رسالتك بنجاح. سنتواصل معك قريباً.'
+            : 'Your message has been sent successfully. We will get back to you soon.'
+        });
+        // Reset form
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: isRTL 
+          ? 'حدث خطأ. يرجى المحاولة مرة أخرى.'
+          : 'An error occurred. Please try again.'
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   if (!content) return null;
 
@@ -94,32 +140,80 @@ const ContactPage = () => {
             <h2>{content.form.headline}</h2>
           </div>
 
-          <form className="contact-form">
+          {submitStatus.message && (
+            <div className={`submit-status ${submitStatus.type}`}>
+              {submitStatus.message}
+            </div>
+          )}
+
+          <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-grid">
               <div className="form-group">
                 <label>{content.form.name}</label>
-                <input type="text" placeholder={content.form.namePlaceholder} />
+                <input 
+                  type="text" 
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder={content.form.namePlaceholder} 
+                  required
+                />
               </div>
               <div className="form-group">
                 <label>{content.form.email}</label>
-                <input type="email" placeholder={content.form.emailPlaceholder} />
+                <input 
+                  type="email" 
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder={content.form.emailPlaceholder} 
+                  required
+                />
               </div>
               <div className="form-group">
                 <label>{content.form.phone}</label>
-                <input type="tel" placeholder={content.form.phonePlaceholder} />
+                <input 
+                  type="tel" 
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder={content.form.phonePlaceholder} 
+                />
               </div>
               <div className="form-group">
                 <label>{content.form.subject}</label>
-                <input type="text" placeholder={content.form.subjectPlaceholder} />
+                <input 
+                  type="text" 
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  placeholder={content.form.subjectPlaceholder} 
+                />
               </div>
               <div className="form-group full-width">
                 <label>{content.form.message}</label>
-                <textarea placeholder={content.form.messagePlaceholder} rows="5"></textarea>
+                <textarea 
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder={content.form.messagePlaceholder} 
+                  rows="5"
+                  required
+                ></textarea>
               </div>
             </div>
             <div className="form-footer">
               <p className="privacy-note">{content.form.privacy}</p>
-              <button type="submit" className="submit-btn">{content.form.submit}</button>
+              <button 
+                type="submit" 
+                className="submit-btn"
+                disabled={submitting}
+              >
+                {submitting 
+                  ? (isRTL ? 'جاري الإرسال...' : 'Sending...') 
+                  : content.form.submit
+                }
+              </button>
             </div>
           </form>
         </div>

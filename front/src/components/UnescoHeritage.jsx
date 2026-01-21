@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
+import { unescoAPI } from '../services/api';
 import unesco1 from '../assets/unesco-1.jpg';
 import unesco2 from '../assets/unesco-2.jpg';
 import unesco3 from '../assets/unesco-3.jpg';
@@ -12,6 +13,7 @@ const UnescoHeritage = () => {
   
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [sitesData, setSitesData] = useState([]);
   
   // Drag/Swipe state
   const [isDragging, setIsDragging] = useState(false);
@@ -22,8 +24,26 @@ const UnescoHeritage = () => {
   // Local images for the sites
   const localImages = [unesco1, unesco2, unesco3, unesco1, unesco2, unesco3, unesco1];
 
-  const sites = content.sites.map((site, index) => ({
-    ...site,
+  // Fetch sites from API
+  useEffect(() => {
+    const fetchSites = async () => {
+      try {
+        const response = await unescoAPI.getAll();
+        if (response.success && response.data.length > 0) {
+          setSitesData(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching UNESCO sites:', error);
+        // Will fall back to static content
+      }
+    };
+    fetchSites();
+  }, []);
+
+  // Use API data if available, otherwise use static translations
+  const sites = (sitesData.length > 0 ? sitesData : content.sites).map((site, index) => ({
+    name: language === 'ar' ? (site.name_ar || site.name) : (site.name_en || site.name),
+    year: site.year_inscribed || site.year,
     image: localImages[index % localImages.length]
   }));
 

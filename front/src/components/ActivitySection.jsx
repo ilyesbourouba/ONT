@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
+import { activitiesAPI } from '../services/api';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './ActivitySection.css';
@@ -10,9 +11,39 @@ gsap.registerPlugin(ScrollTrigger);
 
 const ActivitySection = () => {
   const { language } = useLanguage();
-  const content = translations[language].activities;
+  const staticContent = translations[language].activities;
+  const [activitiesData, setActivitiesData] = useState([]);
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
+
+  // Fetch activities from API
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const response = await activitiesAPI.getAll(1, 10);
+        if (response.success && response.data.length > 0) {
+          setActivitiesData(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching activities:', error);
+      }
+    };
+    fetchActivities();
+  }, []);
+
+  // Use API data if available, otherwise use static translations
+  const content = {
+    ...staticContent,
+    items: activitiesData.length > 0 
+      ? activitiesData.map(item => ({
+          name: language === 'ar' ? (item.name_ar || item.name_en) : item.name_en,
+          description: language === 'ar' ? (item.description_ar || item.description_en) : item.description_en,
+          date: item.date,
+          tags: item.tags || [],
+          image: item.image
+        }))
+      : staticContent.items
+  };
 
   useEffect(() => {
     const sections = gsap.utils.toArray('.activity-slide');
