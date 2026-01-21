@@ -121,6 +121,18 @@ export const contactAPI = {
   delete: (id) => fetchAPI(`/contact/${id}`, { method: 'DELETE' }),
 };
 
+// ===================
+// UPLOAD API
+// ===================
+
+export const uploadAPI = {
+  // Upload base64 image and get back URL
+  uploadBase64: (image) => fetchAPI('/upload/base64', { 
+    method: 'POST', 
+    body: JSON.stringify({ image }) 
+  }),
+};
+
 export default {
   auth: authAPI,
   news: newsAPI,
@@ -129,4 +141,5 @@ export default {
   destinations: destinationsAPI,
   virtualTours: virtualToursAPI,
   contact: contactAPI,
+  upload: uploadAPI,
 };

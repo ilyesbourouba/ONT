@@ -234,3 +234,22 @@
     color: #999;
     font-size: 16px;
 }
+
+/* Content textarea */
+.content-textarea {
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.6;
+}
+
+/* Button disabled states */
+.submit-btn:disabled,
+.cancel-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.submit-btn:disabled:hover {
+    box-shadow: none;
+}

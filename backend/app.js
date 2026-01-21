@@ -24,8 +24,8 @@ const app = express();
 
 // CORS - Allow frontend and admin requests
 const allowedOrigins = [
-  process.env.FRONTEND_URL || 'http://localhost:5173',
-  process.env.ADMIN_URL || 'http://localhost:5174',
+  process.env.FRONTEND_URL || 'http://localhost:5174',
+  process.env.ADMIN_URL || 'http://localhost:5173',
 ];
 app.use(cors({
   origin: (origin, callback) => {
@@ -38,11 +38,11 @@ app.use(cors({
   credentials: true
 }));
 
-// Parse JSON bodies
-app.use(express.json());
+// Parse JSON bodies (increased limit for base64 images)
+app.use(express.json({ limit: '10mb' }));
 
 // Parse URL-encoded bodies
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Serve static files from public and uploads
 app.use('/public', express.static(path.join(__dirname, 'public')));
@@ -70,6 +70,7 @@ app.use('/api/destinations', destinationsRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/virtual-tours', virtualTourRoutes);
 app.use('/api/translations', translationsRoutes);
+app.use('/api/upload', require('./routes/uploadRoutes'));
 
 // ===================
 // ERROR HANDLING

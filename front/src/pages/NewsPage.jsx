@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { newsAPI } from '../services/api';
+import { getImageUrl } from '../utils/imageUtils';
 import './NewsPage.css';
 
 const NewsPage = () => {
@@ -55,7 +56,7 @@ const NewsPage = () => {
     excerpt: language === 'ar' ? (article.excerpt_ar || article.excerpt_en) : article.excerpt_en,
     category: article.category,
     date: article.date || new Date(article.created_at).toLocaleDateString(),
-    image: article.image,
+    image: getImageUrl(article.image),
     likes: article.likes
   }));
 

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { newsAPI } from '../services/api';
+import { newsAPI, uploadAPI } from '../services/api';
 import DataTable from './DataTable';
 import Modal from './Modal';
+import ImageUpload from './ImageUpload';
+import { showSuccess, showError, confirmDelete } from '../utils/toast';
 import './Manager.css';
 
 const NewsManager = () => {
@@ -9,6 +11,7 @@ const NewsManager = () => {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editItem, setEditItem] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     title_en: '', title_ar: '', excerpt_en: '', excerpt_ar: '',
     content_en: '', content_ar: '', category: 'Tourism', image: '', author: ''
@@ -23,7 +26,7 @@ const NewsManager = () => {
       const response = await newsAPI.getAll(1, 50);
       setItems(response.data || []);
     } catch (error) {
-      console.error('Error fetching news:', error);
+      showError('Failed to fetch news: ' + error.message);
     } finally {
       setLoading(false);
     }
@@ -31,26 +34,43 @@ const NewsManager = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
+      let dataToSave = { ...formData };
+      
+      // If image is base64, upload it first and get the URL
+      if (formData.image && formData.image.startsWith('data:image/')) {
+        const uploadResult = await uploadAPI.uploadBase64(formData.image);
+        if (uploadResult.success) {
+          dataToSave.image = uploadResult.data.url;
+        }
+      }
+      
       if (editItem) {
-        await newsAPI.update(editItem.id, formData);
+        await newsAPI.update(editItem.id, dataToSave);
+        showSuccess('News updated successfully!');
       } else {
-        await newsAPI.create(formData);
+        await newsAPI.create(dataToSave);
+        showSuccess('News created successfully!');
       }
       fetchItems();
       closeModal();
     } catch (error) {
-      alert(error.message);
+      showError(error.message || 'Operation failed');
+    } finally {
+      setSubmitting(false);
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
+    const confirmed = await confirmDelete('this news article');
+    if (confirmed) {
       try {
         await newsAPI.delete(id);
+        showSuccess('News deleted successfully!');
         fetchItems();
       } catch (error) {
-        alert(error.message);
+        showError(error.message || 'Failed to delete');
       }
     }
   };
@@ -101,7 +121,7 @@ const NewsManager = () => {
           <form onSubmit={handleSubmit} className="manager-form">
             <div className="form-row">
               <div className="form-group">
-                <label>Title (English)</label>
+                <label>Title (English) *</label>
                 <input value={formData.title_en} onChange={(e) => setFormData({...formData, title_en: e.target.value})} required />
               </div>
               <div className="form-group">
@@ -112,11 +132,34 @@ const NewsManager = () => {
             <div className="form-row">
               <div className="form-group">
                 <label>Excerpt (English)</label>
-                <textarea value={formData.excerpt_en} onChange={(e) => setFormData({...formData, excerpt_en: e.target.value})} rows="2" />
+                <textarea value={formData.excerpt_en} onChange={(e) => setFormData({...formData, excerpt_en: e.target.value})} rows="2" placeholder="Brief summary of the news..." />
               </div>
               <div className="form-group">
                 <label>Excerpt (Arabic)</label>
-                <textarea value={formData.excerpt_ar} onChange={(e) => setFormData({...formData, excerpt_ar: e.target.value})} rows="2" dir="rtl" />
+                <textarea value={formData.excerpt_ar} onChange={(e) => setFormData({...formData, excerpt_ar: e.target.value})} rows="2" dir="rtl" placeholder="ملخص موجز للخبر..." />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Content (English)</label>
+                <textarea 
+                  value={formData.content_en} 
+                  onChange={(e) => setFormData({...formData, content_en: e.target.value})} 
+                  rows="6" 
+                  placeholder="Full news content..."
+                  className="content-textarea"
+                />
+              </div>
+              <div className="form-group">
+                <label>Content (Arabic)</label>
+                <textarea 
+                  value={formData.content_ar} 
+                  onChange={(e) => setFormData({...formData, content_ar: e.target.value})} 
+                  rows="6" 
+                  dir="rtl" 
+                  placeholder="المحتوى الكامل للخبر..."
+                  className="content-textarea"
+                />
               </div>
             </div>
             <div className="form-row">
@@ -131,16 +174,19 @@ const NewsManager = () => {
               </div>
               <div className="form-group">
                 <label>Author</label>
-                <input value={formData.author} onChange={(e) => setFormData({...formData, author: e.target.value})} />
+                <input value={formData.author} onChange={(e) => setFormData({...formData, author: e.target.value})} placeholder="Author name" />
               </div>
             </div>
-            <div className="form-group">
-              <label>Image URL</label>
-              <input value={formData.image} onChange={(e) => setFormData({...formData, image: e.target.value})} />
-            </div>
+            <ImageUpload 
+              label="News Image"
+              value={formData.image}
+              onChange={(value) => setFormData({...formData, image: value})}
+            />
             <div className="form-actions">
-              <button type="button" className="cancel-btn" onClick={closeModal}>Cancel</button>
-              <button type="submit" className="submit-btn">{editItem ? 'Update' : 'Create'}</button>
+              <button type="button" className="cancel-btn" onClick={closeModal} disabled={submitting}>Cancel</button>
+              <button type="submit" className="submit-btn" disabled={submitting}>
+                {submitting ? 'Saving...' : (editItem ? 'Update' : 'Create')}
+              </button>
             </div>
           </form>
         </Modal>
