@@ -9,11 +9,12 @@ import './UnescoHeritage.css';
 
 const UnescoHeritage = () => {
   const { language, isRTL } = useLanguage();
-  const content = translations[language].unesco;
+  const staticContent = translations[language].unesco;
   
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [sitesData, setSitesData] = useState([]);
+  const [apiContent, setApiContent] = useState(null);
   
   // Drag/Swipe state
   const [isDragging, setIsDragging] = useState(false);
@@ -24,24 +25,42 @@ const UnescoHeritage = () => {
   // Local images for the sites
   const localImages = [unesco1, unesco2, unesco3, unesco1, unesco2, unesco3, unesco1];
 
-  // Fetch sites from API
+  // Fetch sites and content from API
   useEffect(() => {
-    const fetchSites = async () => {
+    const fetchData = async () => {
       try {
         const response = await unescoAPI.getAll();
-        if (response.success && response.data.length > 0) {
-          setSitesData(response.data);
+        if (response.success && response.data) {
+          if (response.data.sites?.length > 0) {
+            setSitesData(response.data.sites);
+          }
+          if (response.data.content) {
+            setApiContent(response.data.content);
+          }
         }
       } catch (error) {
-        console.error('Error fetching UNESCO sites:', error);
+        console.error('Error fetching UNESCO data:', error);
         // Will fall back to static content
       }
     };
-    fetchSites();
+    fetchData();
   }, []);
 
+  // Get content from API or fallback to static
+  const getText = (enField, arField, fallback) => {
+    if (apiContent) {
+      return language === 'ar' ? (apiContent[arField] || fallback) : (apiContent[enField] || fallback);
+    }
+    return fallback;
+  };
+
+  const badge = getText('badge_en', 'badge_ar', staticContent.badge);
+  const headline = getText('headline_en', 'headline_ar', staticContent.headline);
+  const description = getText('description_en', 'description_ar', staticContent.description);
+  const ctaExplore = getText('cta_explore_en', 'cta_explore_ar', staticContent.ctaExplore);
+
   // Use API data if available, otherwise use static translations
-  const sites = (sitesData.length > 0 ? sitesData : content.sites).map((site, index) => ({
+  const sites = (sitesData.length > 0 ? sitesData : staticContent.sites).map((site, index) => ({
     name: language === 'ar' ? (site.name_ar || site.name) : (site.name_en || site.name),
     year: site.year_inscribed || site.year,
     image: localImages[index % localImages.length]
@@ -198,12 +217,12 @@ const UnescoHeritage = () => {
     >
       <div className="unesco-container">
         <div className="unesco-text-box">
-          <span className="unesco-badge">{content.badge}</span>
-          <h1>{content.headline}</h1>
-          <p>{content.description}</p>
+          <span className="unesco-badge">{badge}</span>
+          <h1>{headline}</h1>
+          <p>{description}</p>
           
           <div className="unesco-button-group">
-            <a href="#" className="unesco-btn unesco-btn-fill">{content.ctaExplore}</a>
+            <a href="#" className="unesco-btn unesco-btn-fill">{ctaExplore}</a>
           </div>
         </div>
 

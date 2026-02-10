@@ -2,9 +2,13 @@ import './Sidebar.css';
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
   const menuItems = [
+    { id: 'hero', label: 'Hero Slides', icon: '🖼️' },
+    { id: 'about-section', label: 'About Section', icon: '📝' },
+    { id: 'about-page', label: 'About Page', icon: '📄' },
     { id: 'news', label: 'News', icon: '📰' },
     { id: 'activities', label: 'Activities', icon: '🎭' },
     { id: 'unesco', label: 'UNESCO Sites', icon: '🏛️' },
+    { id: 'visit-algeria', label: 'Visit Algeria', icon: '🇩🇿' },
     { id: 'destinations', label: 'Destinations', icon: '🗺️' },
     { id: 'virtual-tours', label: 'Virtual Tours', icon: '🎬' },
     { id: 'contacts', label: 'Contact Forms', icon: '✉️' },

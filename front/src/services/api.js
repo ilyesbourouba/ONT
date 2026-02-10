@@ -108,6 +108,30 @@ export const translationsAPI = {
   getAvailable: () => fetchAPI('/translations'),
 };
 
+// ===================
+// HERO API
+// ===================
+
+export const heroAPI = {
+  getActive: () => fetchAPI('/hero/active'),
+};
+
+// ===================
+// ABOUT API
+// ===================
+
+export const aboutAPI = {
+  getAll: () => fetchAPI('/about'),
+};
+
+// ===================
+// VISIT ALGERIA API
+// ===================
+
+export const visitAlgeriaAPI = {
+  getContent: () => fetchAPI('/visit-algeria'),
+};
+
 // Default export for convenience
 export default {
   news: newsAPI,
@@ -117,4 +141,7 @@ export default {
   contact: contactAPI,
   virtualTours: virtualToursAPI,
   translations: translationsAPI,
+  hero: heroAPI,
+  about: aboutAPI,
+  visitAlgeria: visitAlgeriaAPI,
 };

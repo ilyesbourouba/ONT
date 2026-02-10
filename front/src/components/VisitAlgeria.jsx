@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
+import { visitAlgeriaAPI, destinationsAPI } from '../services/api';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './VisitAlgeria.css';
@@ -9,11 +10,62 @@ gsap.registerPlugin(ScrollTrigger);
 
 const VisitAlgeria = () => {
   const { language } = useLanguage();
-  const content = translations[language].visitAlgeria;
+  const staticContent = translations[language].visitAlgeria;
   const sectionRef = useRef(null);
   const videoBannerRef = useRef(null);
   const destinationsRef = useRef(null);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [apiContent, setApiContent] = useState(null);
+  const [destinationsData, setDestinationsData] = useState([]);
+
+  // Fetch content from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [contentRes, destRes] = await Promise.all([
+          visitAlgeriaAPI.getContent(),
+          destinationsAPI.getAll()
+        ]);
+        if (contentRes.success && contentRes.data) {
+          setApiContent(contentRes.data);
+        }
+        if (destRes.success && destRes.data?.length > 0) {
+          setDestinationsData(destRes.data);
+        }
+      } catch (error) {
+        console.error('Error fetching Visit Algeria data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // Get text from API or fallback
+  const getText = (enField, arField, fallback) => {
+    if (apiContent) {
+      return language === 'ar' ? (apiContent[arField] || fallback) : (apiContent[enField] || fallback);
+    }
+    return fallback;
+  };
+
+  const badge = getText('badge_en', 'badge_ar', staticContent.badge);
+  const headline = getText('headline_en', 'headline_ar', staticContent.headline);
+  const description = getText('description_en', 'description_ar', staticContent.description);
+  const exploreBtn = getText('explore_btn_en', 'explore_btn_ar', staticContent.exploreBtn);
+  const bannerText = getText('banner_text_en', 'banner_text_ar', staticContent.bannerText);
+  const bannerImage = apiContent?.banner_image || staticContent.bannerImage;
+  const youtubeVideoId = apiContent?.youtube_video_id || staticContent.youtubeVideoId;
+  const destinationsTitle = getText('destinations_title_en', 'destinations_title_ar', staticContent.destinationsTitle);
+  const destinationsSubtitle = getText('destinations_subtitle_en', 'destinations_subtitle_ar', staticContent.destinationsSubtitle);
+  const cta = getText('cta_en', 'cta_ar', staticContent.cta);
+
+  // Use API destinations or fallback to static
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  const destinations = destinationsData.length > 0 
+    ? destinationsData.map(d => ({
+        name: language === 'ar' ? (d.name_ar || d.name_en) : d.name_en,
+        image: d.image?.startsWith('http') ? d.image : (d.image?.startsWith('/') ? d.image : `${API_BASE_URL}${d.image}`)
+      }))
+    : staticContent.destinations;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -106,7 +158,7 @@ const VisitAlgeria = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [language]);
+  }, [language, destinations]);
 
   // Close modal on escape key
   useEffect(() => {
@@ -123,22 +175,22 @@ const VisitAlgeria = () => {
     };
   }, [isVideoOpen]);
 
-  if (!content) return null;
+  if (!staticContent) return null;
 
   return (
     <section className="visit-algeria-section" ref={sectionRef}>
       {/* Header Section */}
       <header className="visit-header">
-        <span className="visit-badge">{content.badge}</span>
-        <h1>{content.headline}</h1>
-        <p>{content.description}</p>
+        <span className="visit-badge">{badge}</span>
+        <h1>{headline}</h1>
+        <p>{description}</p>
         <a 
           href="https://ilyesbourouba.github.io/visitAlgeria/" 
           target="_blank" 
           rel="noopener noreferrer"
           className="btn-explore"
         >
-          {content.exploreBtn}
+          {exploreBtn}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
@@ -150,10 +202,10 @@ const VisitAlgeria = () => {
         <div 
           className="video-banner" 
           ref={videoBannerRef}
-          style={{ backgroundImage: `url('${content.bannerImage}')` }}
+          style={{ backgroundImage: `url('${bannerImage}')` }}
         >
           <div className="video-text">
-            <h2>{content.bannerText}</h2>
+            <h2>{bannerText}</h2>
           </div>
           <button className="play-btn" onClick={() => setIsVideoOpen(true)} aria-label="Play video">
             <svg width="22" height="22" viewBox="0 0 24 24">
@@ -174,7 +226,7 @@ const VisitAlgeria = () => {
             </button>
             <div className="video-modal-content">
               <iframe
-                src={`https://www.youtube.com/embed/${content.youtubeVideoId}?autoplay=1&rel=0`}
+                src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&rel=0`}
                 title="Discover Algeria"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -188,12 +240,12 @@ const VisitAlgeria = () => {
       {/* Destinations Grid Section */}
       <div className="destinations-section" ref={destinationsRef}>
         <div className="destinations-header">
-          <h2>{content.destinationsTitle}</h2>
-          <p>{content.destinationsSubtitle}</p>
+          <h2>{destinationsTitle}</h2>
+          <p>{destinationsSubtitle}</p>
         </div>
 
         <div className="destinations-grid">
-          {content.destinations.map((dest, index) => (
+          {destinations.map((dest, index) => (
             <div key={index} className="destination-item">
               <div className="destination-card">
                 <img src={dest.image} alt={dest.name} loading="lazy" />
@@ -212,7 +264,7 @@ const VisitAlgeria = () => {
           rel="noopener noreferrer"
           className="visit-cta-btn"
         >
-          {content.cta}
+          {cta}
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>

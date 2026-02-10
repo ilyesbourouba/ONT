@@ -61,11 +61,21 @@ const paginationValidation = [
   query('limit').optional().isInt({ min: 1, max: 100 })
 ];
 
+/**
+ * Hero slide validation rules
+ */
+const heroValidation = [
+  body('headline_en').notEmpty().withMessage('English headline is required'),
+  body('button_link').optional().isURL().withMessage('Button link must be a valid URL')
+];
+
 module.exports = {
   validate,
   newsValidation,
   activityValidation,
   contactValidation,
+  heroValidation,
   idValidation,
   paginationValidation
 };
+

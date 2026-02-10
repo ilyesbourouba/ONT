@@ -7,20 +7,32 @@ import UnescoManager from '../components/UnescoManager';
 import DestinationsManager from '../components/DestinationsManager';
 import VirtualToursManager from '../components/VirtualToursManager';
 import ContactManager from '../components/ContactManager';
+import HeroManager from '../components/HeroManager';
+import AboutSectionManager from '../components/AboutSectionManager';
+import AboutPageManager from '../components/AboutPageManager';
+import VisitAlgeriaManager from '../components/VisitAlgeriaManager';
 import './Dashboard.css';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
-  const [activeTab, setActiveTab] = useState('news');
+  const [activeTab, setActiveTab] = useState('hero');
 
   const renderContent = () => {
     switch (activeTab) {
+      case 'hero':
+        return <HeroManager />;
+      case 'about-section':
+        return <AboutSectionManager />;
+      case 'about-page':
+        return <AboutPageManager />;
       case 'news':
         return <NewsManager />;
       case 'activities':
         return <ActivitiesManager />;
       case 'unesco':
         return <UnescoManager />;
+      case 'visit-algeria':
+        return <VisitAlgeriaManager />;
       case 'destinations':
         return <DestinationsManager />;
       case 'virtual-tours':
@@ -28,7 +40,7 @@ const Dashboard = () => {
       case 'contacts':
         return <ContactManager />;
       default:
-        return <NewsManager />;
+        return <HeroManager />;
     }
   };
 

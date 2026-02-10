@@ -80,11 +80,19 @@ export const activitiesAPI = {
 // ===================
 
 export const unescoAPI = {
+  // Combined data (for frontend)
   getAll: () => fetchAPI('/unesco'),
-  getById: (id) => fetchAPI(`/unesco/${id}`),
-  create: (data) => fetchAPI('/unesco', { method: 'POST', body: JSON.stringify(data) }),
-  update: (id, data) => fetchAPI(`/unesco/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
-  delete: (id) => fetchAPI(`/unesco/${id}`, { method: 'DELETE' }),
+  
+  // Sites
+  getSites: () => fetchAPI('/unesco/sites'),
+  getSiteById: (id) => fetchAPI(`/unesco/sites/${id}`),
+  createSite: (data) => fetchAPI('/unesco/sites', { method: 'POST', body: JSON.stringify(data) }),
+  updateSite: (id, data) => fetchAPI(`/unesco/sites/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteSite: (id) => fetchAPI(`/unesco/sites/${id}`, { method: 'DELETE' }),
+  
+  // Content
+  getContent: () => fetchAPI('/unesco/content'),
+  updateContent: (data) => fetchAPI('/unesco/content', { method: 'PUT', body: JSON.stringify(data) }),
 };
 
 // ===================
@@ -133,6 +141,65 @@ export const uploadAPI = {
   }),
 };
 
+// ===================
+// HERO API
+// ===================
+
+export const heroAPI = {
+  getAll: () => fetchAPI('/hero'),
+  getActive: () => fetchAPI('/hero/active'),
+  getById: (id) => fetchAPI(`/hero/${id}`),
+  create: (data) => fetchAPI('/hero', { method: 'POST', body: JSON.stringify(data) }),
+  update: (id, data) => fetchAPI(`/hero/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  delete: (id) => fetchAPI(`/hero/${id}`, { method: 'DELETE' }),
+};
+
+// ===================
+// ABOUT API
+// ===================
+
+export const aboutAPI = {
+  // All data (for frontend)
+  getAll: () => fetchAPI('/about'),
+  
+  // Content
+  getContent: () => fetchAPI('/about/content'),
+  updateContent: (data) => fetchAPI('/about/content', { method: 'PUT', body: JSON.stringify(data) }),
+  
+  // Missions
+  getMissions: () => fetchAPI('/about/missions'),
+  createMission: (data) => fetchAPI('/about/missions', { method: 'POST', body: JSON.stringify(data) }),
+  updateMission: (id, data) => fetchAPI(`/about/missions/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteMission: (id) => fetchAPI(`/about/missions/${id}`, { method: 'DELETE' }),
+  
+  // Stats
+  getStats: (type) => fetchAPI(`/about/stats${type ? `?type=${type}` : ''}`),
+  createStat: (data) => fetchAPI('/about/stats', { method: 'POST', body: JSON.stringify(data) }),
+  updateStat: (id, data) => fetchAPI(`/about/stats/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteStat: (id) => fetchAPI(`/about/stats/${id}`, { method: 'DELETE' }),
+  
+  // Pillars
+  getPillars: () => fetchAPI('/about/pillars'),
+  createPillar: (data) => fetchAPI('/about/pillars', { method: 'POST', body: JSON.stringify(data) }),
+  updatePillar: (id, data) => fetchAPI(`/about/pillars/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deletePillar: (id) => fetchAPI(`/about/pillars/${id}`, { method: 'DELETE' }),
+  
+  // FAQs
+  getFaqs: () => fetchAPI('/about/faqs'),
+  createFaq: (data) => fetchAPI('/about/faqs', { method: 'POST', body: JSON.stringify(data) }),
+  updateFaq: (id, data) => fetchAPI(`/about/faqs/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteFaq: (id) => fetchAPI(`/about/faqs/${id}`, { method: 'DELETE' }),
+};
+
+// ===================
+// VISIT ALGERIA API
+// ===================
+
+export const visitAlgeriaAPI = {
+  getContent: () => fetchAPI('/visit-algeria'),
+  updateContent: (data) => fetchAPI('/visit-algeria', { method: 'PUT', body: JSON.stringify(data) }),
+};
+
 export default {
   auth: authAPI,
   news: newsAPI,
@@ -142,4 +209,7 @@ export default {
   virtualTours: virtualToursAPI,
   contact: contactAPI,
   upload: uploadAPI,
+  hero: heroAPI,
+  about: aboutAPI,
+  visitAlgeria: visitAlgeriaAPI,
 };

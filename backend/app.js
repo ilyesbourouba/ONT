@@ -12,6 +12,9 @@ const destinationsRoutes = require('./routes/destinationsRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const virtualTourRoutes = require('./routes/virtualTourRoutes');
 const translationsRoutes = require('./routes/translationsRoutes');
+const heroRoutes = require('./routes/heroRoutes');
+const aboutRoutes = require('./routes/aboutRoutes');
+const visitAlgeriaRoutes = require('./routes/visitAlgeriaRoutes');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
@@ -70,6 +73,9 @@ app.use('/api/destinations', destinationsRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/virtual-tours', virtualTourRoutes);
 app.use('/api/translations', translationsRoutes);
+app.use('/api/hero', heroRoutes);
+app.use('/api/about', aboutRoutes);
+app.use('/api/visit-algeria', visitAlgeriaRoutes);
 app.use('/api/upload', require('./routes/uploadRoutes'));
 
 // ===================

@@ -1,9 +1,12 @@
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 import { useEffect, useRef, useState } from 'react';
+import { aboutAPI } from '../services/api';
 import aboutCard1 from '../assets/about-card-1.png';
 import aboutCard2 from '../assets/about-card-2.jpg';
 import './AboutONT.css';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 // Custom hook for counting animation
 const useCountUp = (endValue, duration = 2000, startCounting = false) => {
@@ -50,24 +53,45 @@ const useCountUp = (endValue, duration = 2000, startCounting = false) => {
 };
 
 // Stat Card Component with animation
-const AnimatedStatCard = ({ stat, index, isVisible }) => {
-  const { displayValue, isCounting } = useCountUp(stat.value, 2000 + (index * 200), isVisible);
+const AnimatedStatCard = ({ stat, index, isVisible, language }) => {
+  const value = language === 'ar' ? (stat.value_ar || stat.value_en || stat.value) : (stat.value_en || stat.value);
+  const label = language === 'ar' ? (stat.label_ar || stat.label_en || stat.label) : (stat.label_en || stat.label);
+  const { displayValue, isCounting } = useCountUp(value, 2000 + (index * 200), isVisible);
   
   return (
     <div className="stat-card">
       <span className={`stat-value ${isCounting ? 'counting' : ''}`}>
         {displayValue}
       </span>
-      <span className="stat-label">{stat.label}</span>
+      <span className="stat-label">{label}</span>
     </div>
   );
 };
 
 const AboutONT = () => {
   const { language } = useLanguage();
-  const content = translations[language].about;
+  const staticContent = translations[language].about;
   const statsRef = useRef(null);
   const [isStatsVisible, setIsStatsVisible] = useState(false);
+  const [apiData, setApiData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch data from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await aboutAPI.getAll();
+        if (response.success && response.data) {
+          setApiData(response.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch about data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -86,35 +110,60 @@ const AboutONT = () => {
     return () => observer.disconnect();
   }, [isStatsVisible]);
 
+  // Get content from API or fallback to static
+  const content = apiData?.content || {};
+  const tagline = language === 'ar' ? (content.tagline_ar || staticContent.tagline) : (content.tagline_en || staticContent.tagline);
+  const headline = language === 'ar' ? (content.headline_ar || staticContent.headline) : (content.headline_en || staticContent.headline);
+  const description = language === 'ar' ? (content.description_ar || staticContent.description) : (content.description_en || staticContent.description);
+  const cta = language === 'ar' ? (content.cta_ar || staticContent.cta) : (content.cta_en || staticContent.cta);
+  
+  // Get missions from API or fallback
+  const missions = apiData?.missions?.length > 0 
+    ? apiData.missions.map(m => language === 'ar' ? (m.mission_ar || m.mission_en) : m.mission_en)
+    : staticContent.missions;
+  
+  // Get stats from API or fallback
+  const stats = apiData?.landingStats?.length > 0 ? apiData.landingStats : staticContent.stats;
+
+  // Get image URL
+  const getImageUrl = (path, fallback) => {
+    if (!path) return fallback;
+    if (path.startsWith('http') || path.startsWith('/assets')) return fallback;
+    return `${API_BASE_URL}${path}`;
+  };
+
+  const image1 = apiData?.content?.image1 ? getImageUrl(apiData.content.image1, aboutCard1) : aboutCard1;
+  const image2 = apiData?.content?.image2 ? getImageUrl(apiData.content.image2, aboutCard2) : aboutCard2;
+
   return (
     <section className="about-ont-modern">
       <div className="about-container">
         {/* Header: Always first on mobile and desktop */}
         <div className="about-header">
           <div className="badge-modern">
-            <h4>{content.tagline}</h4>
+            <h4>{tagline}</h4>
           </div>
-          <h1>{content.headline}</h1>
+          <h1>{headline}</h1>
         </div>
 
         {/* Feature/Right Column: Sandwiched on Mobile */}
         <div className="about-right-col">
           <div className="hero-images">
             <div className="img-card card-top">
-              <img src={aboutCard1} alt="ONT Professional Office" />
+              <img src={image1} alt="ONT Professional Office" />
             </div>
             <div className="img-card card-bottom">
-              <img src={aboutCard2} alt="Tourism Development" />
+              <img src={image2} alt="Tourism Development" />
             </div>
           </div>
         </div>
 
         {/* Content/Left Column Body: Below images on mobile */}
         <div className="about-left-col">
-          <p className="about-desc">{content.description}</p>
+          <p className="about-desc">{description}</p>
           
           <ul className="mission-list">
-            {content.missions.map((mission, index) => (
+            {missions.map((mission, index) => (
               <li key={index} className="mission-item">
                 <span className="check-icon">✓</span>
                 <span className="mission-text">{mission}</span>
@@ -123,18 +172,19 @@ const AboutONT = () => {
           </ul>
 
           <div className="stats-row" ref={statsRef}>
-            {content.stats.map((stat, index) => (
+            {stats.map((stat, index) => (
               <AnimatedStatCard 
                 key={index}
                 stat={stat}
                 index={index}
                 isVisible={isStatsVisible}
+                language={language}
               />
             ))}
           </div>
 
           <button className="read-more-btn">
-            {content.cta} →
+            {cta} →
           </button>
         </div>
       </div>
@@ -143,3 +193,4 @@ const AboutONT = () => {
 };
 
 export default AboutONT;
+

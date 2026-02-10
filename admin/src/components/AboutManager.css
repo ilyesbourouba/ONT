@@ -1,0 +1,119 @@
+/* About Manager - Tab-based UI */
+
+.about-manager {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.about-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-bottom: 1px solid #0f3460;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #e94560, #0f3460);
+    border-color: #e94560;
+    color: white;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+}
+
+.tab-icon {
+    font-size: 16px;
+}
+
+.tab-label {
+    display: inline-block;
+}
+
+.about-tab-content {
+    flex: 1;
+    padding: 24px;
+    background: #fff;
+    overflow-y: auto;
+}
+
+/* Form Sections */
+.form-section {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid #e9ecef;
+}
+
+.form-section h3 {
+    margin: 0 0 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a2e;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e94560;
+}
+
+.about-content-form {
+    max-width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-tabs {
+        padding: 12px 16px;
+    }
+
+    .tab-btn {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+
+    .tab-label {
+        display: none;
+    }
+
+    .tab-icon {
+        font-size: 18px;
+    }
+
+    .about-tab-content {
+        padding: 16px;
+    }
+
+    .form-section {
+        padding: 16px;
+    }
+}
+
+/* Stat Type Badge Colors */
+.status-badge.landing {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.status-badge.page {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
